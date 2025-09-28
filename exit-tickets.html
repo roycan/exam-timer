@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Tickets - Classroom Management Tools</title>
+    
+    <!-- CDN Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation" id="main-navbar">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <strong>Classroom Tools</strong>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" 
+                   data-target="navbar-menu" id="navbar-burger">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbar-menu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="timer.html" data-page="timer">
+                        <i class="fas fa-clock mr-2"></i>Timer
+                    </a>
+                    <a class="navbar-item" href="students.html" data-page="students">
+                        <i class="fas fa-users mr-2"></i>Students
+                    </a>
+                    <a class="navbar-item" href="noise-monitor.html" data-page="noise-monitor">
+                        <i class="fas fa-volume-up mr-2"></i>Noise Monitor
+                    </a>
+                    <a class="navbar-item" href="focus-mode.html" data-page="focus-mode">
+                        <i class="fas fa-eye mr-2"></i>Focus Mode
+                    </a>
+                    <a class="navbar-item" href="exit-tickets.html" data-page="exit-tickets">
+                        <i class="fas fa-clipboard-check mr-2"></i>Exit Tickets
+                    </a>
+                    <a class="navbar-item" href="settings.html" data-page="settings">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="section">
+            <div class="container">
+                <!-- Page Header -->
+                <div class="level mb-6">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h1 class="title is-2">
+                                <i class="fas fa-clipboard-check mr-3 has-text-primary"></i>
+                                Exit Tickets
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button is-success" onclick="showCreatePromptModal()">
+                                <i class="fas fa-plus mr-2"></i>
+                                Create Custom Prompt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <!-- Current Exit Ticket Display -->
+                    <div class="column is-8">
+                        <!-- Exit Ticket Display -->
+                        <div class="card mb-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-ticket-alt mr-2"></i>
+                                    Current Exit Ticket
+                                </p>
+                                <div class="card-header-icon">
+                                    <div class="buttons">
+                                        <button class="button is-small is-info" onclick="showFullScreen()" id="fullscreen-btn" style="display: none;">
+                                            <i class="fas fa-expand-alt mr-1"></i>
+                                            Full Screen
+                                        </button>
+                                        <button class="button is-small is-warning" onclick="printTicket()" id="print-btn" style="display: none;">
+                                            <i class="fas fa-print mr-1"></i>
+                                            Print
+                                        </button>
+                                    </div>
+                                </div>
+                            </header>
+                            <div class="card-content">
+                                <div id="exit-ticket-display" class="has-text-centered py-6">
+                                    <i class="fas fa-clipboard fa-3x has-text-grey-light mb-4"></i>
+                                    <h3 class="title is-4 has-text-grey">No Exit Ticket Selected</h3>
+                                    <p class="has-text-grey mb-4">Choose a prompt category or create your own to get started</p>
+                                    <button class="button is-primary" onclick="getRandomPrompt()">
+                                        <i class="fas fa-shuffle mr-2"></i>
+                                        Get Random Prompt
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Category Selection -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-filter mr-2"></i>
+                                    Browse by Category
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="buttons">
+                                    <button class="button" onclick="filterByCategory('all')" id="filter-all">
+                                        <i class="fas fa-th mr-2"></i>
+                                        All Categories
+                                    </button>
+                                    <button class="button" onclick="filterByCategory('reflection')" id="filter-reflection">
+                                        <i class="fas fa-mirror mr-2"></i>
+                                        Reflection
+                                    </button>
+                                    <button class="button" onclick="filterByCategory('comprehension')" id="filter-comprehension">
+                                        <i class="fas fa-lightbulb mr-2"></i>
+                                        Comprehension
+                                    </button>
+                                    <button class="button" onclick="filterByCategory('application')" id="filter-application">
+                                        <i class="fas fa-tools mr-2"></i>
+                                        Application
+                                    </button>
+                                    <button class="button" onclick="filterByCategory('feedback')" id="filter-feedback">
+                                        <i class="fas fa-comment mr-2"></i>
+                                        Feedback
+                                    </button>
+                                </div>
+                                
+                                <!-- Prompt Grid -->
+                                <div id="prompts-grid" class="columns is-multiline mt-4">
+                                    <!-- Prompts will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <div class="column is-4">
+                        <!-- Quick Actions -->
+                        <div class="card mb-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-bolt mr-2"></i>
+                                    Quick Actions
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-primary is-fullwidth mb-3" onclick="getRandomPrompt()">
+                                            <i class="fas fa-shuffle mr-2"></i>
+                                            Random Prompt
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-success is-fullwidth mb-3" onclick="showCreatePromptModal()">
+                                            <i class="fas fa-plus mr-2"></i>
+                                            Create Custom
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-info is-fullwidth" onclick="showUsageStats()">
+                                            <i class="fas fa-chart-bar mr-2"></i>
+                                            Usage Statistics
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Usage Guide -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-question-circle mr-2"></i>
+                                    How to Use Exit Tickets
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <h5>What are Exit Tickets?</h5>
+                                    <p>Exit tickets are quick reflection questions students answer at the end of class to help you gauge understanding and gather feedback.</p>
+                                    
+                                    <h5>How to Use:</h5>
+                                    <ol>
+                                        <li>Select a category or get a random prompt</li>
+                                        <li>Display the question to your class</li>
+                                        <li>Students write their responses on paper or digitally</li>
+                                        <li>Review responses to plan future lessons</li>
+                                    </ol>
+                                    
+                                    <h5>Categories:</h5>
+                                    <ul>
+                                        <li><strong>Reflection:</strong> Self-assessment and thinking about learning</li>
+                                        <li><strong>Comprehension:</strong> Understanding of concepts</li>
+                                        <li><strong>Application:</strong> How to use what was learned</li>
+                                        <li><strong>Feedback:</strong> Course and teaching feedback</li>
+                                    </ul>
+                                    
+                                    <div class="notification is-info is-light">
+                                        <p><strong>Tip:</strong> Use exit tickets consistently to build a routine and gather valuable insights!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Classroom Management Tools</strong> - Built for educators, by educators.
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Full Screen Display -->
+    <div class="focus-mode" id="exit-ticket-fullscreen" style="display: none;">
+        <div class="focus-mode-content">
+            <div class="focus-mode-message" id="fullscreen-prompt-text">
+                Exit Ticket Question
+            </div>
+            <div class="mt-5">
+                <p class="subtitle is-4 has-text-white-ter" id="fullscreen-category">Category</p>
+            </div>
+        </div>
+        <button class="focus-mode-exit" onclick="exitFullScreen()">
+            <i class="fas fa-times mr-2"></i>
+            Exit Full Screen
+        </button>
+    </div>
+    
+    <!-- Create Custom Prompt Modal -->
+    <div class="modal" id="create-prompt-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Create Custom Exit Ticket</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <form id="create-prompt-form">
+                    <div class="field">
+                        <label class="label">Prompt Question *</label>
+                        <div class="control">
+                            <textarea class="textarea" id="prompt-text" placeholder="Enter your exit ticket question..." 
+                                      rows="3" maxlength="300" required></textarea>
+                        </div>
+                        <p class="help">Keep questions clear and concise (max 300 characters)</p>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">Category</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="prompt-category" required>
+                                    <option value="">Choose a category...</option>
+                                    <option value="reflection">Reflection</option>
+                                    <option value="comprehension">Comprehension</option>
+                                    <option value="application">Application</option>
+                                    <option value="feedback">Feedback</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" onclick="createCustomPrompt()">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Prompt
+                </button>
+                <button class="button close-modal">Cancel</button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Usage Statistics Modal -->
+    <div class="modal" id="stats-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Exit Ticket Usage Statistics</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div id="usage-stats-content">
+                    <!-- Statistics will be loaded here -->
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button close-modal">Close</button>
+                <button class="button is-info" onclick="exportUsageData()">
+                    <i class="fas fa-download mr-2"></i>
+                    Export Data
+                </button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/nav.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/exit-tickets.js"></script>
+</body>
+</html>

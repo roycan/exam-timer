@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Mode - Classroom Management Tools</title>
+    
+    <!-- CDN Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation" id="main-navbar">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <strong>Classroom Tools</strong>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" 
+                   data-target="navbar-menu" id="navbar-burger">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbar-menu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="timer.html" data-page="timer">
+                        <i class="fas fa-clock mr-2"></i>Timer
+                    </a>
+                    <a class="navbar-item" href="students.html" data-page="students">
+                        <i class="fas fa-users mr-2"></i>Students
+                    </a>
+                    <a class="navbar-item" href="noise-monitor.html" data-page="noise-monitor">
+                        <i class="fas fa-volume-up mr-2"></i>Noise Monitor
+                    </a>
+                    <a class="navbar-item" href="focus-mode.html" data-page="focus-mode">
+                        <i class="fas fa-eye mr-2"></i>Focus Mode
+                    </a>
+                    <a class="navbar-item" href="exit-tickets.html" data-page="exit-tickets">
+                        <i class="fas fa-clipboard-check mr-2"></i>Exit Tickets
+                    </a>
+                    <a class="navbar-item" href="settings.html" data-page="settings">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="section">
+            <div class="container">
+                <!-- Page Header -->
+                <div class="level mb-6">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h1 class="title is-2">
+                                <i class="fas fa-eye mr-3 has-text-primary"></i>
+                                Focus Mode
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <!-- Focus Mode Controls -->
+                    <div class="column is-6">
+                        <div class="card shadow-lg">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-bullseye mr-2"></i>
+                                    Focus Display
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p class="mb-4">
+                                        Focus Mode displays a full-screen message to get your students' attention.
+                                        Perfect for important announcements, instructions, or when you need everyone to look up.
+                                    </p>
+                                    
+                                    <!-- Message Input -->
+                                    <div class="field">
+                                        <label class="label">Focus Message</label>
+                                        <div class="control">
+                                            <textarea class="textarea" id="focus-message" rows="3" 
+                                                      placeholder="Enter the message to display in focus mode..."
+                                                      maxlength="200">👀 Eyes Up Here! 👀</textarea>
+                                        </div>
+                                        <p class="help">Keep messages short and clear for maximum impact</p>
+                                    </div>
+                                    
+                                    <!-- Background Color -->
+                                    <div class="field">
+                                        <label class="label">Background Color</label>
+                                        <div class="control">
+                                            <div class="select is-fullwidth">
+                                                <select id="background-color">
+                                                    <option value="primary">Blue (Primary)</option>
+                                                    <option value="success">Green</option>
+                                                    <option value="warning">Yellow</option>
+                                                    <option value="danger">Red</option>
+                                                    <option value="info">Light Blue</option>
+                                                    <option value="dark">Dark</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Focus Mode Button -->
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-primary is-large is-fullwidth" 
+                                                    onclick="enterFocusMode()" id="focus-btn">
+                                                <i class="fas fa-expand mr-2"></i>
+                                                Enter Focus Mode
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Keyboard Shortcut Info -->
+                                    <div class="notification is-info is-light">
+                                        <p><strong>Tip:</strong> Press <kbd>Escape</kbd> or click the exit button to leave focus mode.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Presets -->
+                    <div class="column is-6">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-magic mr-2"></i>
+                                    Quick Messages
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p class="mb-4">Click any preset to use it instantly:</p>
+                                    
+                                    <div class="buttons">
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('👀 Eyes Up Here! 👀')">
+                                            👀 Eyes Up Here!
+                                        </button>
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('🤫 Listen Carefully 🤫')">
+                                            🤫 Listen Carefully
+                                        </button>
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('📚 Time to Focus 📚')">
+                                            📚 Time to Focus
+                                        </button>
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('⏰ Time\'s Up! ⏰')">
+                                            ⏰ Time's Up!
+                                        </button>
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('🎯 Important Announcement 🎯')">
+                                            🎯 Important Announcement
+                                        </button>
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('📋 Check Your Work 📋')">
+                                            📋 Check Your Work
+                                        </button>
+                                        <button class="button is-fullwidth mb-2" 
+                                                onclick="setFocusMessage('🙋‍♀️ Questions? 🙋‍♂️')">
+                                            🙋 Questions?
+                                        </button>
+                                        <button class="button is-fullwidth" 
+                                                onclick="setFocusMessage('✏️ Pencils Down ✏️')">
+                                            ✏️ Pencils Down
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Instructions -->
+                        <div class="card mt-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-question-circle mr-2"></i>
+                                    How to Use
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <ol>
+                                        <li>Type your message or select a preset</li>
+                                        <li>Choose a background color</li>
+                                        <li>Click "Enter Focus Mode"</li>
+                                        <li>Your message will fill the entire screen</li>
+                                        <li>Press <kbd>Escape</kbd> or click the exit button to return</li>
+                                    </ol>
+                                    
+                                    <div class="notification is-success is-light mt-4">
+                                        <p><strong>Pro Tip:</strong> Use focus mode when you need all students to stop what they're doing and pay attention to you!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Classroom Management Tools</strong> - Built for educators, by educators.
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Full-Screen Focus Mode -->
+    <div class="focus-mode" id="focus-mode-overlay" style="display: none;">
+        <div class="focus-mode-content">
+            <div class="focus-mode-message" id="focus-mode-text">
+                👀 Eyes Up Here! 👀
+            </div>
+        </div>
+        <button class="focus-mode-exit" onclick="exitFocusMode()" data-testid="button-exit-focus">
+            <i class="fas fa-times mr-2"></i>
+            Exit Focus Mode
+        </button>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/nav.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/focus-mode.js"></script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+/* LEARNING: Custom CSS to enhance Bulma framework for classroom tools */
+/* This file adds our own styling on top of Bulma's base styles */
+
+/* =============================================================================
+   LEARNING: CSS Custom Properties (Variables) for consistent theming
+   ============================================================================= */
+:root {
+    /* Primary color scheme for classroom tools */
+    --primary-color: #3273dc;
+    --primary-light: #e8f4fd;
+    --primary-dark: #2366d1;
+    
+    /* Semantic colors for different alert types */
+    --success-color: #23d160;
+    --warning-color: #ffdd57;
+    --danger-color: #ff3860;
+    --info-color: #209cee;
+    
+    /* Neutral colors for text and backgrounds */
+    --text-color: #363636;
+    --text-light: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --background-color: #ffffff;
+    --background-light: #fafafa;
+    --border-color: #dbdbdb;
+    
+    /* Timer display colors */
+    --timer-text: var(--primary-color);
+    --timer-background: var(--background-light);
+    
+    /* Noise monitor colors */
+    --noise-quiet: var(--success-color);
+    --noise-acceptable: var(--warning-color);
+    --noise-warning: #ff6b35;
+    --noise-danger: var(--danger-color);
+}
+
+/* =============================================================================
+   LEARNING: Global styles and resets
+   ============================================================================= */
+
+/* Smooth scrolling for better user experience */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure full height for proper layout */
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* LEARNING: App container takes full height for proper footer positioning */
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content grows to fill available space */
+main {
+    flex: 1;
+}
+
+/* =============================================================================
+   LEARNING: Navigation enhancements
+   ============================================================================= */
+
+/* Make navbar more prominent */
+.navbar.is-primary {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Active navigation item styling */
+.navbar-item.is-active {
+    background-color: var(--primary-light) !important;
+    font-weight: bold;
+}
+
+/* Improve mobile menu appearance */
+@media screen and (max-width: 1023px) {
+    .navbar-menu {
+        box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
+    }
+}
+
+/* =============================================================================
+   LEARNING: Timer-specific styles
+   ============================================================================= */
+
+/* Large timer display for classroom visibility */
+.timer-display {
+    font-size: 8rem;
+    font-weight: bold;
+    color: var(--timer-text);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+/* Responsive timer display */
+@media screen and (max-width: 768px) {
+    .timer-display {
+        font-size: 4rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .timer-display {
+        font-size: 3rem;
+    }
+}
+
+/* Timer progress bar styling */
+.timer-progress {
+    height: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--background-light);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timer-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--warning-color), var(--danger-color));
+    border-radius: 0.5rem;
+    transition: width 1s ease-in-out;
+}
+
+/* =============================================================================
+   LEARNING: Noise monitor visualization
+   ============================================================================= */
+
+/* Noise level bars container */
+.noise-bars {
+    display: flex;
+    align-items: end;
+    gap: 4px;
+    height: 200px;
+    padding: 1rem;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Individual noise bar styling */
+.noise-bar {
+    flex: 1;
+    min-width: 8px;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    opacity: 0.3;
+}
+
+/* Active noise bars (representing current levels) */
+.noise-bar.active {
+    opacity: 1;
+}
+
+/* Color coding for different noise levels */
+.noise-bar.quiet {
+    background-color: var(--noise-quiet);
+}
+
+.noise-bar.acceptable {
+    background-color: var(--noise-acceptable);
+}
+
+.noise-bar.warning {
+    background-color: var(--noise-warning);
+}
+
+.noise-bar.danger {
+    background-color: var(--noise-danger);
+}
+
+/* Visual alert for noise violations */
+.noise-alert {
+    animation: noise-flash 0.5s ease-in-out;
+    border: 4px solid var(--danger-color) !important;
+    background-color: rgba(255, 56, 96, 0.1) !important;
+}
+
+@keyframes noise-flash {
+    0%, 100% { 
+        border-color: var(--danger-color);
+        background-color: rgba(255, 56, 96, 0.1);
+    }
+    50% { 
+        border-color: transparent;
+        background-color: transparent;
+    }
+}
+
+/* =============================================================================
+   LEARNING: Student selection styles
+   ============================================================================= */
+
+/* Student avatar placeholder */
+.student-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Selected student name styling */
+.selected-student-name {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 1rem 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Student list item styling */
+.student-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.student-item:hover {
+    background-color: var(--background-light);
+    border-color: var(--border-color);
+}
+
+.student-item.present {
+    border-left: 4px solid var(--success-color);
+}
+
+.student-item.absent {
+    border-left: 4px solid var(--text-muted);
+    opacity: 0.6;
+}
+
+/* =============================================================================
+   LEARNING: Focus mode styles
+   ============================================================================= */
+
+/* Full-screen focus mode */
+.focus-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    text-align: center;
+}
+
+.focus-mode-content {
+    max-width: 80%;
+    padding: 2rem;
+}
+
+.focus-mode-message {
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive focus mode */
+@media screen and (max-width: 768px) {
+    .focus-mode-message {
+        font-size: 2.5rem;
+    }
+}
+
+/* Exit focus mode button */
+.focus-mode-exit {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.focus-mode-exit:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* =============================================================================
+   LEARNING: Card and layout enhancements
+   ============================================================================= */
+
+/* Enhanced card styling */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Card header enhancements */
+.card-header {
+    background-color: var(--background-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Consistent spacing for sections */
+.section {
+    padding: 2rem 0;
+}
+
+/* =============================================================================
+   LEARNING: Button enhancements
+   ============================================================================= */
+
+/* Large action buttons for classroom use */
+.button.is-large-classroom {
+    padding: 1.5rem 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 12px;
+    min-width: 200px;
+}
+
+/* Icon spacing in buttons */
+.button .icon:first-child {
+    margin-right: 0.5rem;
+}
+
+/* Disabled button styling */
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =============================================================================
+   LEARNING: Form enhancements
+   ============================================================================= */
+
+/* Input field enhancements */
+.input, .textarea, .select select {
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus, .textarea:focus, .select select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(50, 115, 220, 0.1);
+}
+
+/* Error state styling */
+.input.is-danger, .textarea.is-danger {
+    border-color: var(--danger-color);
+}
+
+/* Success state styling */
+.input.is-success, .textarea.is-success {
+    border-color: var(--success-color);
+}
+
+/* =============================================================================
+   LEARNING: Utility classes
+   ============================================================================= */
+
+/* Text utilities */
+.text-large {
+    font-size: 1.5rem;
+}
+
+.text-xl {
+    font-size: 2rem;
+}
+
+.text-2xl {
+    font-size: 2.5rem;
+}
+
+.text-3xl {
+    font-size: 3rem;
+}
+
+/* Spacing utilities */
+.mt-auto {
+    margin-top: auto;
+}
+
+.mb-auto {
+    margin-bottom: auto;
+}
+
+/* Background utilities */
+.bg-light {
+    background-color: var(--background-light);
+}
+
+/* Border utilities */
+.border-rounded {
+    border-radius: 8px;
+}
+
+.border-rounded-lg {
+    border-radius: 12px;
+}
+
+/* Shadow utilities */
+.shadow-sm {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-md {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* =============================================================================
+   LEARNING: Animation utilities
+   ============================================================================= */
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Pulse animation for notifications */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Spin animation for loading states */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* =============================================================================
+   LEARNING: Print styles for classroom handouts
+   ============================================================================= */
+@media print {
+    /* Hide navigation and interactive elements when printing */
+    .navbar, .button, .modal, .focus-mode-exit {
+        display: none !important;
+    }
+    
+    /* Ensure good contrast for printed materials */
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    /* Ensure cards are visible when printed */
+    .card {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+}

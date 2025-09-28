@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Classroom Management Tools</title>
+    
+    <!-- CDN Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation" id="main-navbar">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <strong>Classroom Tools</strong>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" 
+                   data-target="navbar-menu" id="navbar-burger">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbar-menu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="timer.html" data-page="timer">
+                        <i class="fas fa-clock mr-2"></i>Timer
+                    </a>
+                    <a class="navbar-item" href="students.html" data-page="students">
+                        <i class="fas fa-users mr-2"></i>Students
+                    </a>
+                    <a class="navbar-item" href="noise-monitor.html" data-page="noise-monitor">
+                        <i class="fas fa-volume-up mr-2"></i>Noise Monitor
+                    </a>
+                    <a class="navbar-item" href="focus-mode.html" data-page="focus-mode">
+                        <i class="fas fa-eye mr-2"></i>Focus Mode
+                    </a>
+                    <a class="navbar-item" href="exit-tickets.html" data-page="exit-tickets">
+                        <i class="fas fa-clipboard-check mr-2"></i>Exit Tickets
+                    </a>
+                    <a class="navbar-item" href="settings.html" data-page="settings">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="section">
+            <div class="container">
+                <!-- Page Header -->
+                <div class="level mb-6">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h1 class="title is-2">
+                                <i class="fas fa-cog mr-3 has-text-primary"></i>
+                                Settings
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button is-success" onclick="exportSettings()">
+                                <i class="fas fa-download mr-2"></i>
+                                Export Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <!-- Settings Form -->
+                    <div class="column is-8">
+                        
+                        <!-- General Settings -->
+                        <div class="card mb-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-sliders-h mr-2"></i>
+                                    General Settings
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <form id="general-settings-form">
+                                    <div class="field">
+                                        <label class="label">Teacher Name</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input" type="text" id="teacher-name" 
+                                                   placeholder="Your name">
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <p class="help">This will be displayed in exports and reports</p>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <label class="label">School Name</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input" type="text" id="school-name" 
+                                                   placeholder="Your school name">
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-school"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="checkbox">
+                                                <input type="checkbox" id="sound-enabled">
+                                                Enable sound notifications
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <div class="control">
+                                            <button type="button" class="button is-primary" onclick="saveGeneralSettings()">
+                                                <i class="fas fa-save mr-2"></i>
+                                                Save Settings
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- Class Management -->
+                        <div class="card mb-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-school mr-2"></i>
+                                    Class Management
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <!-- Add New Class -->
+                                <div class="box">
+                                    <h4 class="title is-5">Add New Class</h4>
+                                    <form id="add-class-form">
+                                        <div class="columns">
+                                            <div class="column">
+                                                <div class="field">
+                                                    <label class="label">Class Name *</label>
+                                                    <div class="control">
+                                                        <input class="input" type="text" id="new-class-name" 
+                                                               placeholder="e.g., Period 1 - Computer Science" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="column">
+                                                <div class="field">
+                                                    <label class="label">Period/Block</label>
+                                                    <div class="control">
+                                                        <input class="input" type="text" id="new-class-period" 
+                                                               placeholder="e.g., Period 1, Block A">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="column is-narrow">
+                                                <div class="field">
+                                                    <label class="label">&nbsp;</label>
+                                                    <div class="control">
+                                                        <button type="button" class="button is-success" onclick="addClass()">
+                                                            <i class="fas fa-plus mr-2"></i>
+                                                            Add Class
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- Existing Classes -->
+                                <div id="classes-list">
+                                    <h4 class="title is-5">Existing Classes</h4>
+                                    <div id="classes-container">
+                                        <!-- Classes will be loaded here dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Management -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-database mr-2"></i>
+                                    Data Management
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="box">
+                                            <h4 class="title is-5 has-text-success">
+                                                <i class="fas fa-upload mr-2"></i>
+                                                Import Data
+                                            </h4>
+                                            <p class="mb-3">Import your classroom data from a JSON file</p>
+                                            <div class="file has-name is-fullwidth">
+                                                <label class="file-label">
+                                                    <input class="file-input" type="file" id="import-file" 
+                                                           accept=".json" onchange="handleFileImport(this)">
+                                                    <span class="file-cta">
+                                                        <span class="file-icon">
+                                                            <i class="fas fa-upload"></i>
+                                                        </span>
+                                                        <span class="file-label">
+                                                            Choose file…
+                                                        </span>
+                                                    </span>
+                                                    <span class="file-name" id="import-file-name">
+                                                        No file selected
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="control mt-3">
+                                                <button class="button is-success is-fullwidth" 
+                                                        onclick="importData()" id="import-button" disabled>
+                                                    <i class="fas fa-upload mr-2"></i>
+                                                    Import Data
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="column">
+                                        <div class="box">
+                                            <h4 class="title is-5 has-text-info">
+                                                <i class="fas fa-download mr-2"></i>
+                                                Export Data
+                                            </h4>
+                                            <p class="mb-3">Download all your classroom data as a JSON file</p>
+                                            <button class="button is-info is-fullwidth" onclick="exportData()">
+                                                <i class="fas fa-download mr-2"></i>
+                                                Download Data
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Danger Zone -->
+                                <div class="box has-background-danger-light mt-5">
+                                    <h4 class="title is-5 has-text-danger">
+                                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                                        Danger Zone
+                                    </h4>
+                                    <p class="mb-3 has-text-danger-dark">
+                                        <strong>Warning:</strong> This action cannot be undone. 
+                                        Make sure to export your data first!
+                                    </p>
+                                    <button class="button is-danger" onclick="confirmClearData()">
+                                        <i class="fas fa-trash mr-2"></i>
+                                        Clear All Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Settings Info Sidebar -->
+                    <div class="column is-4">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Settings Guide
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <h4>General Settings</h4>
+                                    <p>Configure your basic app preferences including your name and school information.</p>
+                                    
+                                    <h4>Class Management</h4>
+                                    <p>Add, edit, or remove your classes. Each class can have its own set of students.</p>
+                                    
+                                    <h4>Data Management</h4>
+                                    <ul>
+                                        <li><strong>Export:</strong> Download all your data to transfer between devices</li>
+                                        <li><strong>Import:</strong> Upload previously exported data</li>
+                                        <li><strong>Clear:</strong> Remove all data and start fresh</li>
+                                    </ul>
+                                    
+                                    <div class="notification is-info is-light">
+                                        <p><strong>Tip:</strong> Always export your data before making major changes!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- App Statistics -->
+                        <div class="card mt-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-chart-line mr-2"></i>
+                                    App Statistics
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div id="app-statistics">
+                                    <!-- Statistics will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Classroom Management Tools</strong> - Built for educators, by educators.
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Confirm Action</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p id="confirm-message">Are you sure you want to continue?</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-danger" id="confirm-yes">Yes, Continue</button>
+                <button class="button close-modal">Cancel</button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/nav.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Management Tools</title>
+    
+    <!-- LEARNING: CDN links load external CSS and JavaScript libraries -->
+    <!-- Bulma CSS Framework - provides styling components -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    
+    <!-- Font Awesome Icons - provides icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom styles for our application -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation" id="main-navbar">
+            <!-- Navbar brand/title -->
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <strong>Classroom Tools</strong>
+                </a>
+                
+                <!-- Mobile hamburger menu -->
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" 
+                   data-target="navbar-menu" id="navbar-burger">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            
+            <!-- Navbar menu items -->
+            <div id="navbar-menu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="timer.html" data-page="timer">
+                        <i class="fas fa-clock mr-2"></i>
+                        Timer
+                    </a>
+                    <a class="navbar-item" href="students.html" data-page="students">
+                        <i class="fas fa-users mr-2"></i>
+                        Students
+                    </a>
+                    <a class="navbar-item" href="noise-monitor.html" data-page="noise-monitor">
+                        <i class="fas fa-volume-up mr-2"></i>
+                        Noise Monitor
+                    </a>
+                    <a class="navbar-item" href="focus-mode.html" data-page="focus-mode">
+                        <i class="fas fa-eye mr-2"></i>
+                        Focus Mode
+                    </a>
+                    <a class="navbar-item" href="exit-tickets.html" data-page="exit-tickets">
+                        <i class="fas fa-clipboard-check mr-2"></i>
+                        Exit Tickets
+                    </a>
+                    <a class="navbar-item" href="settings.html" data-page="settings">
+                        <i class="fas fa-cog mr-2"></i>
+                        Settings
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="section">
+            <div class="container">
+                <!-- Welcome Section -->
+                <div class="hero is-info">
+                    <div class="hero-body">
+                        <div class="container has-text-centered">
+                            <h1 class="title">
+                                <i class="fas fa-chalkboard-teacher mr-3"></i>
+                                Welcome to Classroom Management Tools
+                            </h1>
+                            <h2 class="subtitle">
+                                Everything you need to manage your classroom effectively
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- LEARNING: App Statistics Section -->
+                <section class="section">
+                    <h2 class="title is-3">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        Your Classroom Overview
+                    </h2>
+                    <div class="columns" id="app-stats">
+                        <!-- LEARNING: Statistics cards are loaded dynamically by JavaScript -->
+                        <div class="column is-3">
+                            <div class="box has-text-centered">
+                                <i class="fas fa-spinner fa-spin fa-2x has-text-primary mb-2"></i>
+                                <p class="title is-3">...</p>
+                                <p class="subtitle is-6">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- LEARNING: Quick Actions Section -->
+                <section class="section">
+                    <h2 class="title is-3">
+                        <i class="fas fa-bolt mr-2"></i>
+                        Quick Actions
+                    </h2>
+                    <div class="columns is-multiline">
+                        
+                        <!-- Timer Quick Action -->
+                        <div class="column is-4">
+                            <div class="card shadow-md">
+                                <div class="card-content has-text-centered">
+                                    <div class="mb-4">
+                                        <i class="fas fa-clock fa-3x has-text-primary"></i>
+                                    </div>
+                                    <h3 class="title is-4">Start Timer</h3>
+                                    <p class="mb-4">Set up a countdown timer for exams, activities, or breaks</p>
+                                    <button class="button is-primary quick-action" data-action="start-timer">
+                                        <i class="fas fa-play mr-2"></i>
+                                        Quick Timer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Selector Quick Action -->
+                        <div class="column is-4">
+                            <div class="card shadow-md">
+                                <div class="card-content has-text-centered">
+                                    <div class="mb-4">
+                                        <i class="fas fa-user-friends fa-3x has-text-success"></i>
+                                    </div>
+                                    <h3 class="title is-4">Select Student</h3>
+                                    <p class="mb-4">Randomly pick a student to answer questions or participate</p>
+                                    <button class="button is-success quick-action" data-action="random-student">
+                                        <i class="fas fa-shuffle mr-2"></i>
+                                        Pick Student
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Focus Mode Quick Action -->
+                        <div class="column is-4">
+                            <div class="card shadow-md">
+                                <div class="card-content has-text-centered">
+                                    <div class="mb-4">
+                                        <i class="fas fa-eye fa-3x has-text-info"></i>
+                                    </div>
+                                    <h3 class="title is-4">Focus Mode</h3>
+                                    <p class="mb-4">Get everyone's attention with a full-screen message</p>
+                                    <a href="focus-mode.html" class="button is-info">
+                                        <i class="fas fa-expand mr-2"></i>
+                                        Focus Mode
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Create Class Quick Action -->
+                        <div class="column is-4">
+                            <div class="card shadow-md">
+                                <div class="card-content has-text-centered">
+                                    <div class="mb-4">
+                                        <i class="fas fa-plus-circle fa-3x has-text-warning"></i>
+                                    </div>
+                                    <h3 class="title is-4">Add Class</h3>
+                                    <p class="mb-4">Create a new class and start adding students</p>
+                                    <button class="button is-warning quick-action" data-action="create-class">
+                                        <i class="fas fa-plus mr-2"></i>
+                                        New Class
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Exit Tickets Quick Action -->
+                        <div class="column is-4">
+                            <div class="card shadow-md">
+                                <div class="card-content has-text-centered">
+                                    <div class="mb-4">
+                                        <i class="fas fa-clipboard-check fa-3x has-text-primary"></i>
+                                    </div>
+                                    <h3 class="title is-4">Exit Tickets</h3>
+                                    <p class="mb-4">Quick reflection questions and feedback prompts</p>
+                                    <a href="exit-tickets.html" class="button is-primary">
+                                        <i class="fas fa-clipboard-check mr-2"></i>
+                                        Create Ticket
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Export Data Quick Action -->
+                        <div class="column is-4">
+                            <div class="card shadow-md">
+                                <div class="card-content has-text-centered">
+                                    <div class="mb-4">
+                                        <i class="fas fa-download fa-3x has-text-dark"></i>
+                                    </div>
+                                    <h3 class="title is-4">Export Data</h3>
+                                    <p class="mb-4">Download your classroom data as a backup file</p>
+                                    <button class="button is-dark quick-action" data-action="export-data">
+                                        <i class="fas fa-download mr-2"></i>
+                                        Export Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </section>
+                
+                <!-- LEARNING: Feature Overview Cards -->
+                <section class="section">
+                    <h2 class="title is-3">
+                        <i class="fas fa-tools mr-2"></i>
+                        All Classroom Tools
+                    </h2>
+                    <div class="columns is-multiline">
+                        
+                        <!-- Timer Card -->
+                        <div class="column is-half">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <i class="fas fa-clock fa-2x has-text-primary"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Timer</p>
+                                            <p class="subtitle is-6">Countdown and stopwatch for classroom activities</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        Perfect for exams, timed activities, and class periods. Includes preset times and custom settings.
+                                        <br>
+                                        <a href="timer.html" class="button is-primary mt-3">
+                                            <i class="fas fa-clock mr-2"></i>
+                                            Start Timer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Management Card -->
+                        <div class="column is-half">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <i class="fas fa-users fa-2x has-text-success"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Student Management</p>
+                                            <p class="subtitle is-6">Random selection and attendance tracking</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        Smart random student selection with fair participation tracking. Import class lists via CSV.
+                                        <br>
+                                        <a href="students.html" class="button is-success mt-3">
+                                            <i class="fas fa-users mr-2"></i>
+                                            Manage Students
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Noise Monitor Card -->
+                        <div class="column is-half">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <i class="fas fa-volume-up fa-2x has-text-warning"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Noise Monitor</p>
+                                            <p class="subtitle is-6">Keep classroom noise levels manageable</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        Real-time noise monitoring with progressive alerts and visual feedback for classroom management.
+                                        <br>
+                                        <a href="noise-monitor.html" class="button is-warning mt-3">
+                                            <i class="fas fa-volume-up mr-2"></i>
+                                            Monitor Noise
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Focus Mode Card -->
+                        <div class="column is-half">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <i class="fas fa-eye fa-2x has-text-info"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Focus Mode</p>
+                                            <p class="subtitle is-6">Full-screen messages for class attention</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        Display important messages in full-screen mode to capture all students' attention.
+                                        <br>
+                                        <a href="focus-mode.html" class="button is-info mt-3">
+                                            <i class="fas fa-eye mr-2"></i>
+                                            Enter Focus Mode
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Exit Tickets Card -->
+                        <div class="column is-half">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <i class="fas fa-clipboard-check fa-2x has-text-primary"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Exit Tickets</p>
+                                            <p class="subtitle is-6">Quick reflection questions for students</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        Pre-built and custom reflection prompts to gather student feedback and assess understanding.
+                                        <br>
+                                        <a href="exit-tickets.html" class="button is-primary mt-3">
+                                            <i class="fas fa-clipboard-check mr-2"></i>
+                                            Create Exit Tickets
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Settings Card -->
+                        <div class="column is-half">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-48x48">
+                                                <i class="fas fa-cog fa-2x has-text-grey"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Settings</p>
+                                            <p class="subtitle is-6">Configure your classroom tools</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        Manage classes, import/export data, and customize your classroom management experience.
+                                        <br>
+                                        <a href="settings.html" class="button is-grey mt-3">
+                                            <i class="fas fa-cog mr-2"></i>
+                                            Open Settings
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Classroom Management Tools</strong> - Built for educators, by educators.
+                    <br>
+                    <small>Educational web development project for grade 9 students.</small>
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- LEARNING: JavaScript files are loaded at the bottom for better performance -->
+    <!-- Navigation functionality -->
+    <script src="js/nav.js"></script>
+    
+    <!-- Common utilities -->
+    <script src="js/utils.js"></script>
+    
+    <!-- Data storage utilities -->
+    <script src="js/storage.js"></script>
+    
+    <!-- Page-specific functionality -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

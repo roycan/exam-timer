@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer - Classroom Management Tools</title>
+    
+    <!-- CDN Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation Bar -->
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation" id="main-navbar">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <strong>Classroom Tools</strong>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" 
+                   data-target="navbar-menu" id="navbar-burger">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbar-menu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="timer.html" data-page="timer">
+                        <i class="fas fa-clock mr-2"></i>Timer
+                    </a>
+                    <a class="navbar-item" href="students.html" data-page="students">
+                        <i class="fas fa-users mr-2"></i>Students
+                    </a>
+                    <a class="navbar-item" href="noise-monitor.html" data-page="noise-monitor">
+                        <i class="fas fa-volume-up mr-2"></i>Noise Monitor
+                    </a>
+                    <a class="navbar-item" href="focus-mode.html" data-page="focus-mode">
+                        <i class="fas fa-eye mr-2"></i>Focus Mode
+                    </a>
+                    <a class="navbar-item" href="exit-tickets.html" data-page="exit-tickets">
+                        <i class="fas fa-clipboard-check mr-2"></i>Exit Tickets
+                    </a>
+                    <a class="navbar-item" href="settings.html" data-page="settings">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="section">
+            <div class="container">
+                <div class="columns">
+                    <!-- Timer Display Column -->
+                    <div class="column is-8">
+                        <div class="card shadow-lg">
+                            <div class="card-content has-text-centered p-6">
+                                <!-- Timer Mode Toggle -->
+                                <div class="buttons is-centered mb-5">
+                                    <button class="button is-primary is-medium" id="countdown-mode-btn">
+                                        <i class="fas fa-hourglass-half mr-2"></i>
+                                        Countdown
+                                    </button>
+                                    <button class="button is-light is-medium" id="stopwatch-mode-btn">
+                                        <i class="fas fa-stopwatch mr-2"></i>
+                                        Stopwatch
+                                    </button>
+                                </div>
+                                
+                                <!-- Timer Title -->
+                                <h1 class="title is-3 mb-4" id="timer-title">Exam Timer</h1>
+                                
+                                <!-- Main Timer Display -->
+                                <div class="timer-display mb-5" id="timer-display">
+                                    25:00
+                                </div>
+                                
+                                <!-- Progress Bar (Countdown mode only) -->
+                                <div class="timer-progress mb-5" id="progress-container" style="display: none;">
+                                    <div class="timer-progress-fill" id="progress-bar" style="width: 0%;"></div>
+                                </div>
+                                
+                                <!-- Timer Status -->
+                                <div class="mb-4">
+                                    <span class="tag is-large" id="timer-status">Ready</span>
+                                </div>
+                                
+                                <!-- Timer Controls -->
+                                <div class="buttons is-centered is-large">
+                                    <button class="button is-success is-large-classroom" id="start-btn">
+                                        <i class="fas fa-play mr-2"></i>
+                                        Start
+                                    </button>
+                                    <button class="button is-warning is-large-classroom" id="pause-btn" disabled>
+                                        <i class="fas fa-pause mr-2"></i>
+                                        Pause
+                                    </button>
+                                    <button class="button is-danger is-large-classroom" id="reset-btn">
+                                        <i class="fas fa-stop mr-2"></i>
+                                        Reset
+                                    </button>
+                                </div>
+                                
+                                <!-- Alert Info -->
+                                <div class="notification is-info is-light mt-4" id="alert-info">
+                                    <p><i class="fas fa-bell mr-2"></i>
+                                    Alerts enabled: 5-minute warning, last minute beeps</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timer Settings Column -->
+                    <div class="column is-4">
+                        
+                        <!-- Quick Presets -->
+                        <div class="card mb-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-clock mr-2"></i>
+                                    Quick Presets
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="buttons">
+                                    <button class="button is-fullwidth mb-2" onclick="setPresetTime(300)">
+                                        5 minutes
+                                    </button>
+                                    <button class="button is-fullwidth mb-2" onclick="setPresetTime(600)">
+                                        10 minutes
+                                    </button>
+                                    <button class="button is-fullwidth mb-2" onclick="setPresetTime(900)">
+                                        15 minutes
+                                    </button>
+                                    <button class="button is-fullwidth mb-2" onclick="setPresetTime(1500)">
+                                        25 minutes
+                                    </button>
+                                    <button class="button is-fullwidth mb-2" onclick="setPresetTime(2700)">
+                                        45 minutes
+                                    </button>
+                                    <button class="button is-fullwidth" onclick="setPresetTime(5400)">
+                                        90 minutes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Custom Time -->
+                        <div class="card mb-5">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-cog mr-2"></i>
+                                    Custom Time
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="columns is-gapless">
+                                    <div class="column">
+                                        <div class="field">
+                                            <label class="label">Hours</label>
+                                            <div class="control">
+                                                <input class="input has-text-centered" type="number" 
+                                                       id="custom-hours" value="0" min="0" max="23">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="field">
+                                            <label class="label">Minutes</label>
+                                            <div class="control">
+                                                <input class="input has-text-centered" type="number" 
+                                                       id="custom-minutes" value="25" min="0" max="59">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="field">
+                                            <label class="label">Seconds</label>
+                                            <div class="control">
+                                                <input class="input has-text-centered" type="number" 
+                                                       id="custom-seconds" value="0" min="0" max="59">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="button is-primary is-fullwidth" onclick="setCustomTime()">
+                                    <i class="fas fa-check mr-2"></i>
+                                    Set Time
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Alert Settings -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <i class="fas fa-bell mr-2"></i>
+                                    Alert Settings
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="alerts-enabled" checked>
+                                            Enable audio alerts
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div id="alert-options">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="checkbox">
+                                                <input type="checkbox" id="final-warning" checked>
+                                                5-minute warning
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="checkbox">
+                                                <input type="checkbox" id="last-minute" checked>
+                                                Last minute beeps
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <label class="label">Alert Sound</label>
+                                        <div class="control">
+                                            <div class="select is-fullwidth">
+                                                <select id="alert-sound">
+                                                    <option value="beep">Beep</option>
+                                                    <option value="chime">Chime</option>
+                                                    <option value="bell">Bell</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-info is-fullwidth is-small" 
+                                                    onclick="testAlertSound()">
+                                                <i class="fas fa-volume-up mr-2"></i>
+                                                Test Sound
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-success is-fullwidth" onclick="saveTimerSettings()">
+                                            <i class="fas fa-save mr-2"></i>
+                                            Save Settings
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Classroom Management Tools</strong> - Built for educators, by educators.
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Timer Finished Modal -->
+    <div class="modal" id="timer-finished-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-success">
+                <p class="modal-card-title has-text-white">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Time's Up!
+                </p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <div class="mb-4">
+                    <i class="fas fa-hourglass-end fa-4x has-text-success"></i>
+                </div>
+                <h3 class="title is-4">Timer Finished</h3>
+                <p class="subtitle">The countdown has reached zero.</p>
+            </section>
+            <footer class="modal-card-foot is-centered">
+                <button class="button is-success" onclick="closeTimerFinishedModal()">
+                    <i class="fas fa-check mr-2"></i>
+                    Acknowledge
+                </button>
+                <button class="button" onclick="resetTimer()">
+                    <i class="fas fa-redo mr-2"></i>
+                    Start New Timer
+                </button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/nav.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/timer.js"></script>
+</body>
+</html>
