@@ -146,6 +146,11 @@ function loadStudentList() {
         const presentIcon = student.present ? 'fa-check-circle has-text-success' : 'fa-times-circle has-text-danger';
         const presentText = student.present ? 'Present' : 'Absent';
         
+        // Only show the ID line when an ID actually exists
+        const idLine = student.studentId
+            ? `<p class="subtitle is-7 has-text-grey mb-0">ID: ${escapeHtml(student.studentId)}</p>`
+            : '';
+        
         return `
             <div class="student-item ${presentClass} mb-3 p-3 border-rounded" id="student-${student.id}">
                 <div class="level">
@@ -159,9 +164,7 @@ function loadStudentList() {
                                 </div>
                                 <div class="media-content">
                                     <h5 class="title is-6 mb-1">${escapeHtml(student.name)}</h5>
-                                    <p class="subtitle is-7 has-text-grey mb-0">
-                                        ${student.studentId ? 'ID: ' + escapeHtml(student.studentId) : 'No ID'}
-                                    </p>
+                                    ${idLine}
                                 </div>
                             </div>
                         </div>
