@@ -436,6 +436,16 @@ main {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
+/* -----------------------------------------------------------------------------
+   Fix: Prevent subtitle overlap with titles in compact list items
+   Bulma applies a negative margin to `.title + .subtitle` which can cause the
+   grey subtitle text to visually overlap the title in dense layouts (like the
+   Existing Classes list on Settings). We relax that spacing locally.
+   --------------------------------------------------------------------------- */
+#classes-container .title + .subtitle {
+    margin-top: 0.25rem !important; /* eliminate overlap while keeping it tight */
+}
+
 /* =============================================================================
    LEARNING: Animation utilities
    ============================================================================= */
