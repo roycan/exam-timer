@@ -19,6 +19,9 @@ function initializeStudentPage() {
     
     // Set up modal close handlers
     setupModalHandlers();
+    
+    // Set up keyboard shortcuts
+    setupKeyboardShortcuts();
 }
 
 // =============================================================================
@@ -56,6 +59,25 @@ function setupModalHandlers() {
             const modal = this.closest('.modal');
             modal.classList.remove('is-active');
         };
+    });
+}
+
+function setupKeyboardShortcuts() {
+    // LEARNING: Keyboard shortcuts for quick actions
+    document.addEventListener('keydown', function(event) {
+        // R key - random student selection (when not in input fields)
+        if (event.key === 'r' && 
+            event.target.tagName !== 'INPUT' && 
+            event.target.tagName !== 'TEXTAREA' &&
+            event.target.tagName !== 'SELECT') {
+            
+            // Only trigger if button is enabled
+            const btn = document.getElementById('random-select-btn');
+            if (btn && !btn.disabled) {
+                selectRandomStudent();
+                event.preventDefault();
+            }
+        }
     });
 }
 
