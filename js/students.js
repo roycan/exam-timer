@@ -125,6 +125,26 @@ function loadStudentList() {
     
     const students = ClassroomStorage.getStudents(currentClassId);
     
+    // LEARNING: Sort students for easier lookup - present students first, then alphabetically by name
+    students.sort((a, b) => {
+        // 1. Sort by attendance status (present before absent)
+        if (a.present !== b.present) {
+            return b.present ? 1 : -1; // present (true) comes first
+        }
+        
+        // 2. Sort alphabetically by name (case-insensitive)
+        const nameA = (a.name || '').trim();
+        const nameB = (b.name || '').trim();
+        
+        // 3. Blank names go to bottom within their attendance group
+        if (!nameA && nameB) return 1;
+        if (nameA && !nameB) return -1;
+        if (!nameA && !nameB) return 0;
+        
+        // 4. Compare names alphabetically with locale-aware sorting
+        return nameA.localeCompare(nameB, undefined, { sensitivity: 'base' });
+    });
+    
     if (students.length === 0) {
         studentListContainer.innerHTML = `
             <div class="has-text-centered py-6">
